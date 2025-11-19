@@ -1,0 +1,46 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h2>Team Dashboard</h2>
+
+<div class="wallet-balance">
+    Balance: {{ wallet.balance }}
+</div>
+
+<h3 class="section-heading">Scan to pay this team</h3>
+<div class="qr-wrapper">
+    <div class="qr-code">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ qr_url }}"
+             alt="QR Code">
+    </div>
+    <div class="qr-link">
+        <strong>Payment link:</strong><br>
+        {{ qr_url }}
+        <p style="margin-top: 6px; font-size: 0.85rem;">
+            Ask customers to scan this QR or open the link to pay your team.
+        </p>
+    </div>
+</div>
+
+<h3 class="section-heading">Payments received</h3>
+<div class="table-wrapper">
+    <table>
+        <tr>
+            <th>From</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Time</th>
+        </tr>
+        {% for t in received_transactions %}
+        <tr>
+            <td>{{ t.from_wallet.user.username }}</td>
+            <td>{{ t.amount }}</td>
+            <td>{{ t.description }}</td>
+            <td>{{ t.created_at }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No payments yet.</td></tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

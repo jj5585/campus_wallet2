@@ -1,0 +1,12 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h2>Top up student wallet</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Top Up</button>
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary btn-small">Cancel</a>
+</form>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h2>Customer Dashboard</h2>
+
+<div class="wallet-balance">
+    Balance: {{ wallet.balance }}
+</div>
+
+<div style="margin-top: 10px; margin-bottom: 10px;">
+    <a href="{% url 'pay' %}" class="btn btn-primary">Pay a team</a>
+</div>
+
+<h3 class="section-heading">Your payments</h3>
+
+<div class="table-wrapper">
+    <table>
+        <tr>
+            <th>To</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Time</th>
+        </tr>
+        {% for t in sent_transactions %}
+        <tr>
+            <td>{{ t.to_wallet.user.username }}</td>
+            <td>{{ t.amount }}</td>
+            <td>{{ t.description }}</td>
+            <td>{{ t.created_at }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No payments yet.</td></tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

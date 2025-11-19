@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h2>Pay a team</h2>
+
+<div class="wallet-balance">
+    Your balance: {{ balance }}
+</div>
+
+<form method="post" style="margin-top: 10px;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Pay</button>
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary btn-small">Cancel</a>
+</form>
+{% endblock %}

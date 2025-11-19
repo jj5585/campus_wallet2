@@ -1,0 +1,40 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h2>Teacher Dashboard</h2>
+
+<div class="wallet-balance">
+    Balance: {{ wallet.balance }}
+</div>
+
+<div style="margin-top: 10px; margin-bottom: 10px;">
+    <a href="{% url 'topup' %}" class="btn btn-primary">Top up student wallet</a>
+</div>
+
+<h3 class="section-heading">Leaderboard (Teams by total sales)</h3>
+
+<div class="table-wrapper">
+    <table>
+        <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Wallet Balance</th>
+            <th>Total Received (Sales)</th>
+        </tr>
+        {% for row in leaderboard %}
+        <tr>
+            <td>
+                <span class="badge-rank {% if forloop.counter == 1 %}badge-rank-1{% elif forloop.counter == 2 %}badge-rank-2{% elif forloop.counter == 3 %}badge-rank-3{% endif %}">
+                    {{ forloop.counter }}
+                </span>
+            </td>
+            <td>{{ row.team.username }}</td>
+            <td>{{ row.wallet.balance }}</td>
+            <td>{{ row.total_amount }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No teams yet.</td></tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

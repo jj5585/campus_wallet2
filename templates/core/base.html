@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Campus Wallet</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body>
+
+<div class="app-wrapper">
+    <div class="card">
+        <header class="app-header">
+            <div>
+                <div class="app-title">Campus Wallet</div>
+                <div class="app-subtitle">Virtual money system for campus stalls</div>
+            </div>
+
+            {% if user.is_authenticated %}
+            <div class="app-user">
+                <span>{{ user.username }}</span>
+                <span class="badge-role">{{ user.role }}</span>
+                <div class="app-nav">
+                    <a href="{% url 'dashboard' %}">Dashboard</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                </div>
+            </div>
+            {% else %}
+            <div class="app-user">
+                <a href="{% url 'login' %}" class="btn btn-small btn-secondary">Login</a>
+            </div>
+            {% endif %}
+        </header>
+
+        {% for message in messages %}
+            <div class="message {% if message.tags == 'error' %}message-error{% else %}message-success{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {% block content %}{% endblock %}
+    </div>
+</div>
+
+</body>
+</html>
