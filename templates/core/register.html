@@ -4,10 +4,10 @@
 <div style="display:flex; justify-content:center; width:100%; margin-top:40px;">
     <div style="width:420px;">
         <h3 class="text-center mb-2" style="color:#fff; text-align:center;">
-            Login to Campus Wallet
+            Create Your Campus Wallet
         </h3>
         <p style="text-align:center; color:#9ca3af; font-size:0.9rem; margin-bottom:18px;">
-            Access your wallet, view balance, and pay campus teams.
+            Sign up as a customer and start using credits at campus stalls.
         </p>
 
         {% if messages %}
@@ -19,6 +19,7 @@
         <form method="post" style="width:100%;">
             {% csrf_token %}
 
+            {# Render each field with nicer labels #}
             {% for field in form %}
                 <div style="margin-bottom:10px;">
                     <label class="auth-label" for="{{ field.id_for_label }}">
@@ -34,31 +35,33 @@
             {% endfor %}
 
             <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px; margin-top:4px;">
-                <input type="checkbox" id="toggle-password-login" style="width:auto; margin:0;">
-                <label for="toggle-password-login" class="password-toggle">Show password</label>
+                <input type="checkbox" id="toggle-password" style="width:auto; margin:0;">
+                <label for="toggle-password" class="password-toggle">Show password</label>
             </div>
 
             <button type="submit" class="btn btn-primary" style="width:100%; margin-top:12px;">
-                Login
+                Sign Up
             </button>
         </form>
 
         <p class="text-center mt-3" style="color:#bbb; margin-top:16px; text-align:center;">
-            New here?
-            <a href="{% url 'register' %}" style="color:#4ea8de;">Create an account</a>
+            Already have an account?
+            <a href="{% url 'login' %}" style="color:#4ea8de;">Login</a>
         </p>
     </div>
 </div>
 
 <script>
     (function() {
-        const checkbox = document.getElementById("toggle-password-login");
+        const checkbox = document.getElementById("toggle-password");
         if (!checkbox) return;
 
         checkbox.addEventListener("change", function () {
-            const pw = document.getElementById("id_password");
+            const pw1 = document.getElementById("id_password1");
+            const pw2 = document.getElementById("id_password2");
             const type = this.checked ? "text" : "password";
-            if (pw) pw.type = type;
+            if (pw1) pw1.type = type;
+            if (pw2) pw2.type = type;
         });
     })();
 </script>

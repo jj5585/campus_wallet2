@@ -21,10 +21,11 @@ body {
 .app-wrapper {
     min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 40px 16px;
+    justify-content: center;   /* center horizontally */
+    align-items: center;       /* ✅ center vertically */
+    padding: 40px 16px;        /* you can even reduce to 16px 16px if you want tighter */
 }
+
 
 /* Card */
 .card {
@@ -495,51 +496,3 @@ tr:hover td {
     color: #cbd5f5;
     margin-bottom: 14px;
 }
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Wallet</title>
-    <link rel="stylesheet" href="{% static 'core/style.css' %}">
-    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
-</head>
-
-<body>
-
-<div class="app-wrapper">
-    <div class="card">
-        <header class="app-header">
-            <div>
-                <div class="app-title">Campus Wallet</div>
-                <div class="app-subtitle">Virtual money system for campus stalls</div>
-            </div>
-
-            {% if user.is_authenticated %}
-            <div class="app-user">
-                <span>{{ user.username }}</span>
-                <span class="badge-role">{{ user.role }}</span>
-                <div class="app-nav">
-                    <a href="{% url 'dashboard' %}">Dashboard</a>
-                    <a href="{% url 'logout' %}">Logout</a>
-                </div>
-            </div>
-            {% else %}
-            <div class="app-user">
-                <a href="{% url 'login' %}" class="btn btn-small btn-secondary">Login</a>
-            </div>
-            {% endif %}
-        </header>
-
-        {% for message in messages %}
-            <div class="message {% if message.tags == 'error' %}message-error{% else %}message-success{% endif %}">
-                {{ message }}
-            </div>
-        {% endfor %}
-
-        {% block content %}{% endblock %}
-    </div>
-</div>
-
-</body>
-</html>

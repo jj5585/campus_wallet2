@@ -7,7 +7,7 @@ from django.db import transaction as db_transaction
 from django.contrib.auth import logout as auth_logout
 
 from .models import Wallet, Transaction
-from .forms import TopUpForm, PaymentForm
+from .forms import TopUpForm, PaymentForm, CustomerRegistrationForm
 
 User = get_user_model()
 
@@ -154,3 +154,25 @@ def logout_view(request):
     """Simple logout view that works with GET and redirects to login."""
     auth_logout(request)
     return redirect('login')
+    from django.contrib.auth import login
+
+
+def register_view(request):
+    """
+    Public registration for new CUSTOMERS.
+    """
+    if request.user.is_authenticated:
+        return redirect("dashboard")
+
+    if request.method == "POST":
+        form = CustomerRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Account created successfully.")
+            return redirect("dashboard")
+    else:
+        form = CustomerRegistrationForm()
+
+    return render(request, "core/register.html", {"form": form})
+

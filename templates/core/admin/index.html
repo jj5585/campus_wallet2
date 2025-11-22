@@ -1,0 +1,32 @@
+{% extends "admin/index.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card shadow-sm p-3">
+            <h5 class="card-title">Total Users</h5>
+            <p class="display-6">{{ dashboard_total_users }}</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm p-3">
+            <h5 class="card-title">Total Wallets</h5>
+            <p class="display-6">{{ dashboard_total_wallets }}</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm p-3">
+            <h5 class="card-title">Total Transactions</h5>
+            <p class="display-6">{{ dashboard_total_transactions }}</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm p-3">
+            <h5 class="card-title">Transactions Today</h5>
+            <p class="display-6">{{ dashboard_transactions_today }}</p>
+        </div>
+    </div>
+</div>
+
+{{ block.super }}
+{% endblock %}
